@@ -3,25 +3,26 @@ const { default: mongoose } = require("mongoose");
 require("dotenv").config({ path: "./.env.local" });
 // const app = express();
 const { Server } = require("socket.io");
-const port = process.env.PORT;
+const port = process.env.PORT || 3005;
 const cors = require("cors");
 
 const meal_routes = require("./src/routes/meal.route.js");
 const setting_routes = require("./src/routes/setting.route.js");
 const order_routes = require("./src/routes/order.route.js");
+
+const app = express();
+// app.listen(port, () => {
+//   console.log("Server has started!");
+// });
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Database Connected");
-    const app = express();
 
     app.set("port", port);
-    // app.listen(port, () => {
-    //   console.log("Server has started!");
-    // });
-    app.get("/", (req, res) => {
-      res.send("Hello World!");
-    });
     app.use(express.json());
     app.use(cors());
     app.use("/meals", meal_routes);
