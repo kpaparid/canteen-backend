@@ -1,6 +1,6 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-require("dotenv").config({ path: "./.env.local" });
+// require("dotenv").config({ path: "./.env.local" });
 // const app = express();
 // const { Server } = require("socket.io");
 const port = process.env.PORT || 3005;
@@ -22,7 +22,9 @@ app.set("port", port);
 app.use(express.json());
 // app.use(cors());
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(
+    "mongodb+srv://kpaparid:Paparidis1993@cluster0.8gzcu.mongodb.net/canteenDatabase?retryWrites=true&w=majority"
+  )
   .then(() => {
     console.log("Database Connected");
     app.use("/meals", meal_routes);
