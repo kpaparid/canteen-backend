@@ -7,7 +7,7 @@ const port = process.env.PORT || 3005;
 const cors = require("cors");
 
 const meal_routes = require("./src/routes/meal.route.js");
-// const setting_routes = require("./src/routes/setting.route.js");
+const setting_routes = require("./src/routes/setting.route.js");
 const order_routes = require("./src/routes/order.route.js");
 
 const app = express();
