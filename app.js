@@ -17,14 +17,13 @@ const app = express();
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+app.set("port", port);
+app.use(express.json());
+app.use(cors());
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Database Connected");
-
-    app.set("port", port);
-    app.use(express.json());
-    app.use(cors());
     app.use("/meals", meal_routes);
     app.use("/settings", setting_routes);
     app.use("/orders", order_routes);
