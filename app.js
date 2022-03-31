@@ -1,5 +1,5 @@
 const express = require("express");
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 // require("dotenv").config({ path: "./.env.local" });
 // const app = express();
 // const { Server } = require("socket.io");
