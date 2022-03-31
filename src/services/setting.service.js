@@ -5,7 +5,7 @@ exports.getSettings = async function (query, page, limit) {
     var Settings = await Setting.find(query);
     return Settings;
   } catch (e) {
-    throw Error("Error while Paginating Users");
+    throw Error("Error while Paginating Orders");
   }
 };
 exports.createSetting = async function (body) {

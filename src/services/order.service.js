@@ -5,7 +5,7 @@ exports.getOrders = async function (query, page, limit) {
     var orders = await Order.find(query);
     return orders;
   } catch (e) {
-    throw Error("Error while Paginating Users");
+    throw Error("Error while Paginating Orders");
   }
 };
 exports.createOrder = async function (body) {

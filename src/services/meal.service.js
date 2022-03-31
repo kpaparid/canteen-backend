@@ -5,7 +5,7 @@ exports.getMeals = async function (query, page, limit) {
     var meals = await Meal.find(query);
     return meals;
   } catch (e) {
-    throw Error("Error while Paginating Users");
+    throw Error("Error while Paginating Meals");
   }
 };
 exports.createMeal = async function (body) {
