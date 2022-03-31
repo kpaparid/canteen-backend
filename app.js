@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.set("port", port);
-app.use(express.json());
+// app.set("port", port);
+// app.use(express.json());
 // app.use(cors());
 mongoose
   .connect(
@@ -27,16 +27,16 @@ mongoose
   )
   .then(() => {
     console.log("Database Connected");
-    app.use("/meals", meal_routes);
-    app.use("/settings", setting_routes);
-    app.use("/orders", order_routes);
+    // app.use("/meals", meal_routes);
+    // app.use("/settings", setting_routes);
+    // app.use("/orders", order_routes);
 
-    app.use("*", (req, res) => {
-      return res.status(404).json({
-        success: false,
-        message: "API endpoint doesnt exist",
-      });
-    });
+    // app.use("*", (req, res) => {
+    //   return res.status(404).json({
+    //     success: false,
+    //     message: "API endpoint doesnt exist",
+    //   });
+    // });
 
     // const server = require("http").createServer(app);
     // const io = new Server(server, {
