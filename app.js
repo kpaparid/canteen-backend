@@ -1,19 +1,14 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-// require("dotenv").config({ path: "./.env.local" });
-// const app = express();
+require("dotenv").config({ path: "./.env.local" });
 const { Server } = require("socket.io");
 const port = process.env.PORT || 3005;
 const cors = require("cors");
-
 const meal_routes = require("./src/routes/meal.route.js");
 const setting_routes = require("./src/routes/setting.route.js");
 const order_routes = require("./src/routes/order.route.js");
 
 const app = express();
-// app.listen(port, () => {
-//   console.log("Server has started!");
-// });
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -22,13 +17,11 @@ app.set("port", port);
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect(
-    "mongodb+srv://kpaparid:Paparidis1993@cluster0.8gzcu.mongodb.net/canteenDatabase?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Database Connected");
     app.use("/meals", meal_routes);
-    // app.use("/settings", setting_routes);
+    app.use("/settings", setting_routes);
     app.use("/orders", order_routes);
 
     app.use("*", (req, res) => {
@@ -41,7 +34,7 @@ mongoose
     const server = require("http").createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000", "http://localhost:500"],
         methods: ["GET", "POST"],
       },
     });
