@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const meal_routes = require("./src/routes/meal.route.js");
 // const setting_routes = require("./src/routes/setting.route.js");
-// const order_routes = require("./src/routes/order.route.js");
+const order_routes = require("./src/routes/order.route.js");
 
 const app = express();
 // app.listen(port, () => {
@@ -29,7 +29,7 @@ mongoose
     console.log("Database Connected");
     app.use("/meals", meal_routes);
     // app.use("/settings", setting_routes);
-    // app.use("/orders", order_routes);
+    app.use("/orders", order_routes);
 
     app.use("*", (req, res) => {
       return res.status(404).json({
