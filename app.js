@@ -19,9 +19,9 @@ mongoose
     // app.listen(port, () => {
     //   console.log("Server has started!");
     // });
-    // app.get("/", (req, res) => {
-    //   res.send("Hello World!");
-    // });
+    app.get("/", (req, res) => {
+      res.send("Hello World!");
+    });
     app.use(express.json());
     app.use(cors());
     app.use("/meals", meal_routes);
