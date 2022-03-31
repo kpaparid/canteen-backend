@@ -1,4 +1,4 @@
-var Setting = require("../models/Setting.model");
+var Setting = require("../models/setting.model");
 
 exports.getSettings = async function (query, page, limit) {
   try {
