@@ -32,10 +32,10 @@ exports.createOrder = async function (req, res, next) {
 };
 exports.updateOrder = async function (req, res, next) {
   try {
-    // var orders = await orderService.deleteorder(req.body);
+    var orders = await orderService.updateOrder(req.params.id, req.body);
     return res.status(200).json({
       status: 201,
-      // data: orders,
+      data: orders,
       message: "Successfully Created order",
     });
   } catch (e) {

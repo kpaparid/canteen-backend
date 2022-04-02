@@ -28,6 +28,7 @@ const OrdersSchema = new mongoose.Schema(
     items: { type: [ItemsSchema], required: true },
     status: { type: String, required: true, default: "pending" },
     user: { type: Object, required: true },
+    meta: Object,
   },
   {
     timestamps: true,

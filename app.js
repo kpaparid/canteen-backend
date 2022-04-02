@@ -34,7 +34,11 @@ mongoose
     const server = require("http").createServer(app);
     const io = new Server(server, {
       cors: {
-        origin: ["http://localhost:3000", "95.223.108.179"],
+        origin: [
+          "http://localhost:3000",
+          "95.223.108.179",
+          "https://6245473cc589f66fe4bcb762--incomparable-douhua-be7995.netlify.app/",
+        ],
         methods: ["GET", "POST"],
       },
     });

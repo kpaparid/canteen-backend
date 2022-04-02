@@ -16,11 +16,10 @@ exports.createOrder = async function (body) {
     throw Error(e);
   }
 };
-exports.updateOrder = async function (id) {
+exports.updateOrder = async function (id, body) {
   try {
-    // var orders = await Meal.create(body);
-    // return orders;
-    return true;
+    var orders = await Order.updateOne({ _id: id }, { ...body });
+    return orders;
   } catch (e) {
     throw Error(e);
   }
