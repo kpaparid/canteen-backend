@@ -37,7 +37,7 @@ mongoose
         origin: [
           "http://localhost:3000",
           "95.223.108.179",
-          "https://incomparable-douhua-be7995.netlify.app/",
+          "https://incomparable-douhua-be7995.netlify.app",
         ],
         methods: ["GET", "POST"],
       },
