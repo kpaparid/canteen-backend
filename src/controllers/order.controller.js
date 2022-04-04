@@ -18,7 +18,7 @@ exports.getOrders = async function (req, res, next) {
 
 exports.createOrder = async function (req, res, next) {
   try {
-    console.log("creating order", req?.body);
+    // console.log("creating order", req?.body);
     var orders = await orderService.createOrder(req.body);
     return res.status(200).json({
       status: 201,
