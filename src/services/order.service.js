@@ -1,3 +1,4 @@
+const { nanoid, customAlphabet } = require("nanoid");
 var Order = require("../models/order.model");
 
 exports.getOrders = async function (query, page, limit) {
@@ -9,8 +10,11 @@ exports.getOrders = async function (query, page, limit) {
   }
 };
 exports.createOrder = async function (body) {
+  const price = body.items.reduce((a, b) => a + b.calculatedPrice, 0);
+  const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const number = customAlphabet(alphabet, 6)();
   try {
-    var orders = await Order.insertMany(body);
+    var orders = await Order.insertMany({ ...body, price, number });
     return orders;
   } catch (e) {
     throw Error(e);

@@ -28,6 +28,8 @@ const OrdersSchema = new mongoose.Schema(
     items: { type: [ItemsSchema], required: true },
     status: { type: String, required: true, default: "pending" },
     user: { type: Object, required: true },
+    number: { type: String, required: true },
+    price: { type: Number, required: true },
     meta: Object,
   },
   {
