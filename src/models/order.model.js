@@ -16,6 +16,7 @@ const ItemsSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     comment: { type: String },
     itemId: { type: String, required: true },
+    menuId: { type: String, required: true },
     calculatedPrice: { type: String, required: true },
     extras: [ExtrasSchema],
   },
