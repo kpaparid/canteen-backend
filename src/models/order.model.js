@@ -1,9 +1,14 @@
 var mongoose = require("mongoose");
 
+const OptionsSchema = new mongoose.Schema({
+  text: { type: String, required: true },
+  price: { type: Number, required: true },
+});
 const ExtrasSchema = new mongoose.Schema(
   {
     price: Number,
-    text: { type: String, required: true },
+    title: { type: String, required: true },
+    options: [{ type: OptionsSchema, required: true }],
   },
   {
     _id: false,
