@@ -7,6 +7,7 @@ const cors = require("cors");
 const meal_routes = require("./src/routes/meal.route.js");
 const setting_routes = require("./src/routes/setting.route.js");
 const order_routes = require("./src/routes/order.route.js");
+const firebase_routes = require("./src/routes/firebase.route.js");
 
 const app = express();
 app.get("/", (req, res) => {
@@ -23,11 +24,12 @@ mongoose
     app.use("/meals", meal_routes);
     app.use("/settings", setting_routes);
     app.use("/orders", order_routes);
+    app.use("/firebase", firebase_routes);
 
     app.use("*", (req, res) => {
       return res.status(404).json({
         success: false,
-        message: "API endpoint doesnt exist",
+        message: "API endpoint doesn't exist",
       });
     });
 
@@ -46,7 +48,6 @@ mongoose
       console.log("user connected", socket.id);
       socket.off("disconnect", () => {
         console.log("User Disconnected", socket.id);
-        // socket.off();
       });
       socket.on("join_room", (data) => {
         console.log(`${socket.id} joined room ${data}`);
@@ -55,7 +56,6 @@ mongoose
       socket.on("send_order", (data) => {
         console.log(`${socket.id} sending order ${data}`);
         socket.to("admin").emit("received_order", data);
-        // io.sockets
       });
     });
 

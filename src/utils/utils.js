@@ -4,18 +4,20 @@ exports.getFilter = (query) => {
     Object.keys(query).reduce((a, b) => {
       const operator = b.substring(b.lastIndexOf("_"), b.length);
       const field = b.substring(0, b.lastIndexOf("_"));
+      const bb = b === "id" ? "_id" : b;
+      const fieldB = field === "id" ? "_id" : field;
       const value =
         operator === "_ne"
-          ? { [field]: { $ne: query[b] } }
+          ? { [fieldB]: { $ne: query[b] } }
           : operator === "_gt"
-          ? { [field]: { $gt: query[b] } }
+          ? { [fieldB]: { $gt: query[b] } }
           : operator === "_gte"
-          ? { [field]: { $gte: query[b] } }
+          ? { [fieldB]: { $gte: query[b] } }
           : operator === "_lt"
-          ? { [field]: { $lt: query[b] } }
+          ? { [fieldB]: { $lt: query[b] } }
           : operator === "_lte"
-          ? { [field]: { $lte: query[b] } }
-          : { [b]: query[b] };
+          ? { [fieldB]: { $lte: query[b] } }
+          : { [bb]: query[b] };
 
       return { ...a, ...value };
     }, {})

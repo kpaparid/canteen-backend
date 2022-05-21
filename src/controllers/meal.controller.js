@@ -1,10 +1,16 @@
 var MealService = require("../services/meal.service");
+var utils = require("../utils/utils");
 
 exports.getMeals = async function (req, res, next) {
   var page = req.params.page ? req.params.page : 1;
   var limit = req.params.limit ? req.params.limit : 10;
   try {
-    var meals = await MealService.getMeals({}, page, limit);
+    var meals = await MealService.getMeals(
+      utils.getFilter(req.query),
+      page,
+      limit
+    );
+    console.log("fetching meals");
     return res.status(200).json({
       status: 200,
       data: meals,

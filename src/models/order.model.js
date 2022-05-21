@@ -1,3 +1,5 @@
+const { format } = require("date-fns");
+const { zonedTimeToUtc } = require("date-fns-tz");
 var mongoose = require("mongoose");
 
 const OptionsSchema = new mongoose.Schema({
@@ -29,17 +31,27 @@ const ItemsSchema = new mongoose.Schema(
     _id: false,
   }
 );
+const UsersSchema = new mongoose.Schema({
+  uid: { type: String, required: true },
+  email: { type: String },
+  displayName: { type: String },
+  phoneNumber: { type: String },
+});
 const OrdersSchema = new mongoose.Schema(
   {
     items: { type: [ItemsSchema], required: true },
     status: { type: String, required: true, default: "pending" },
-    user: { type: Object, required: true },
+    user: { type: UsersSchema, required: true },
     number: { type: String, required: true },
     price: { type: Number, required: true },
+    createdAt: {
+      type: String,
+      required: true,
+    },
     meta: Object,
   },
   {
-    timestamps: true,
+    // timestamps: false,
     toJSON: {
       transform: function (doc, ret, options) {
         ret.id = ret._id;
