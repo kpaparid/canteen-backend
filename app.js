@@ -38,6 +38,7 @@ mongoose
       cors: {
         origin: [
           "http://localhost:3000",
+          "http://localhost:3001",
           "95.223.108.179",
           "https://incomparable-douhua-be7995.netlify.app",
         ],
@@ -56,6 +57,10 @@ mongoose
       socket.on("send_order", (data) => {
         console.log(`${socket.id} sending order ${data}`);
         socket.to("admin").emit("received_order", data);
+      });
+      socket.on("update_order", (data) => {
+        console.log(`${socket.id} sending order ${data}`);
+        socket.to(data.uid).emit("updated_order", data);
       });
     });
 

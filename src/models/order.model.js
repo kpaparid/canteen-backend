@@ -40,11 +40,16 @@ const UsersSchema = new mongoose.Schema({
 const OrdersSchema = new mongoose.Schema(
   {
     items: { type: [ItemsSchema], required: true },
+    time: { type: String },
     status: { type: String, required: true, default: "pending" },
     user: { type: UsersSchema, required: true },
     number: { type: String, required: true },
     price: { type: Number, required: true },
     createdAt: {
+      type: String,
+      required: true,
+    },
+    updatedAt: {
       type: String,
       required: true,
     },

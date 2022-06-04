@@ -28,7 +28,13 @@ exports.createOrder = async function (body) {
     ) + "";
 
   try {
-    var orders = await Order.insertMany({ ...body, price, number, createdAt });
+    var orders = await Order.insertMany({
+      ...body,
+      price,
+      number,
+      createdAt,
+      updatedAt: createdAt,
+    });
     return orders;
   } catch (e) {
     throw Error(e);
@@ -36,7 +42,12 @@ exports.createOrder = async function (body) {
 };
 exports.updateOrder = async function (id, body) {
   try {
-    var orders = await Order.updateOne({ _id: id }, { ...body });
+    const updatedAt =
+      format(
+        zonedTimeToUtc(new Date(), "Europe/Berlin"),
+        "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+      ) + "";
+    var orders = await Order.updateOne({ _id: id }, { ...body, updatedAt });
     return orders;
   } catch (e) {
     throw Error(e);
