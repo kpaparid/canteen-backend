@@ -16,18 +16,37 @@ exports.createMeal = async function (body) {
     throw Error(e);
   }
 };
-exports.updateMeal = async function (id) {
+exports.updateMeal = async function (id, body) {
   try {
-    // var meals = await Meal.create(body);
-    // return meals;
+    var meals = await Meal.updateOne({ _id: id }, body);
+    return meals;
+  } catch (e) {
+    throw Error(e);
+  }
+};
+exports.updateAllMeal = async function (ids, body) {
+  try {
+    const bulkOps = body.map(({ id, ...rest }) => {
+      return {
+        updateOne: {
+          filter: {
+            _id: id,
+          },
+          update: rest,
+        },
+      };
+    });
+    Meal.bulkWrite(bulkOps).then((res) => {
+      console.log("Documents Updated", res.modifiedCount);
+    });
     return true;
   } catch (e) {
     throw Error(e);
   }
 };
-exports.deleteMeal = async function (id) {
+exports.deleteMeal = async function (ids) {
   try {
-    const ids = id.split(",");
+    const ids = ids.split(",");
     await Meal.deleteMany({ _id: { $in: ids } });
     return true;
   } catch (e) {

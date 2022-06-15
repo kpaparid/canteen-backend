@@ -10,5 +10,6 @@ router.get("/", MealController.getMeals);
 router.post("/", checkIfAuthenticated, MealController.createMeal);
 router.delete("/:id", checkIfAuthenticated, MealController.deleteMeal);
 router.put("/:id", checkIfAuthenticated, MealController.updateMeal);
+router.put("/all/:id", checkIfAuthenticated, MealController.updateAllMeals);
 
 module.exports = router;

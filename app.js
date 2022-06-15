@@ -62,6 +62,10 @@ mongoose
         console.log(`${socket.id} sending order ${data}`);
         socket.to(data.uid).emit("updated_order", data);
       });
+      socket.on("update_shop", (data) => {
+        console.log(`${socket.id} updating shop ${data}`);
+        socket.to("shopIsOpen").emit("updated_shop", data);
+      });
     });
 
     server.listen(port);

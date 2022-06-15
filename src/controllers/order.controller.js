@@ -1,11 +1,11 @@
-var orderService = require("../services/order.service");
+var OrderService = require("../services/order.service");
 var utils = require("../utils/utils");
 
 exports.getOrders = async function (req, res, next) {
   var page = req.params.page ? req.params.page : 1;
   var limit = req.params.limit ? req.params.limit : 10;
   try {
-    var orders = await orderService.getOrders(
+    var orders = await OrderService.getOrders(
       utils.getFilter(req.query),
       page,
       limit
@@ -24,7 +24,7 @@ exports.getOrders = async function (req, res, next) {
 exports.createOrder = async function (req, res, next) {
   try {
     // console.log("creating order", req?.body);
-    var orders = await orderService.createOrder(req.body);
+    var orders = await OrderService.createOrder(req.body);
     return res.status(200).json({
       status: 201,
       data: orders,
@@ -37,7 +37,7 @@ exports.createOrder = async function (req, res, next) {
 };
 exports.updateOrder = async function (req, res, next) {
   try {
-    var orders = await orderService.updateOrder(req.params.id, req.body);
+    var orders = await OrderService.updateOrder(req.params.id, req.body);
     return res.status(200).json({
       status: 201,
       data: orders,
@@ -50,7 +50,7 @@ exports.updateOrder = async function (req, res, next) {
 };
 exports.deleteOrder = async function (req, res, next) {
   try {
-    var orders = await orderService.deleteOrder(req.params.id);
+    var orders = await OrderService.deleteOrder(req.params.id);
     return res.status(200).json({
       status: 201,
       data: orders,
