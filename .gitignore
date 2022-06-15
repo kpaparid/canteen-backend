@@ -29,5 +29,5 @@ yarn-error.log*
 .env.production.local
 
 # firebase
-.firebase-key.json
+# .firebase-key.json
 
