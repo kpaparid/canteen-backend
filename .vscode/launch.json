@@ -12,8 +12,6 @@
             "internalConsoleOptions": "neverOpen",
             "env": {
                 "debug": "app:*",
-                // "PORT": "3005",
-                // "MONGO_URI": "mongodb+srv://kpaparid:Paparidis1993@cluster0.8gzcu.mongodb.net/canteenDatabase?retryWrites=true&w=majority"
             }
         }
     ]
