@@ -1,9 +1,9 @@
 var admin = require("firebase-admin");
 
-var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+var serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(JSON.parse(serviceAccount)),
 });
 exports.admin = function () {
   return admin;
