@@ -29,16 +29,19 @@ exports.createSetting = async function (req, res, next) {
 };
 exports.updateSetting = async function (req, res, next) {
   try {
-    // var Settings = await SettingService.deleteSetting(req.body);
+    var Settings =
+      req.params.id === "categories"
+        ? await SettingService.updateCategoriesAndMeals(req.body)
+        : await SettingService.updateSetting(req.params.id, req.body);
     return res.status(200).json({
       status: 201,
-      // data: Settings,
-      message: "Successfully Created Setting",
+      message: "Successfully Updated Setting",
     });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
 exports.deleteSetting = async function (req, res, next) {
   try {
     var Settings = await SettingService.deleteSetting(req.params.id);
