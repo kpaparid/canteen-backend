@@ -27,5 +27,8 @@ exports.addRoles = async function (uid, body) {
     throw Error(e);
   }
 };
+exports.createUser = async function (body) {
+  return admin.auth().createUser(body);
+};
 
 // module.exports = admin;

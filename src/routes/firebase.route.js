@@ -8,6 +8,7 @@ const {
 
 router.get("/roles", FirebaseController.getRoles);
 router.post("/roles", FirebaseController.addRoles);
+router.post("/user", FirebaseController.createUser);
 // router.delete("/:id", FirebaseController.deleteMeal);
 // router.put("/:id", FirebaseController.updateMeal);
 

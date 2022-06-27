@@ -44,10 +44,11 @@ exports.updateAllMeal = async function (ids, body) {
     throw Error(e);
   }
 };
-exports.deleteMeal = async function (ids) {
+exports.deleteMeal = async function (id) {
   try {
-    const ids = ids.split(",");
-    await Meal.deleteMany({ _id: { $in: ids } });
+    // const ids = ids.split(",");
+    // await Meal.deleteMany({ _id: { $in: ids } });
+    await Meal.deleteOne({ _id: id });
     return true;
   } catch (e) {
     throw Error(e);

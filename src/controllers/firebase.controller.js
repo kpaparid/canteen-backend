@@ -26,3 +26,19 @@ exports.getRoles = async function (req, res, next) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+exports.createUser = async function (req, res, next) {
+  try {
+    await FirebaseService.createUser(req.body)
+      .then((r) => {
+        return res.status(200).json({
+          status: 201,
+          message: "Successfully Created User",
+        });
+      })
+      .catch((e) => {
+        return res.status(400).json({ status: 400, message: e.message });
+      });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
