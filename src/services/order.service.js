@@ -1,4 +1,4 @@
-const { format } = require("date-fns");
+const { format, addHours } = require("date-fns");
 const { zonedTimeToUtc } = require("date-fns-tz");
 const { customAlphabet } = require("nanoid");
 var Order = require("../models/order.model");
@@ -21,7 +21,7 @@ exports.createOrder = async function (body) {
   var count = await Order.countDocuments(query);
   const number = "#" + (count + 101);
 
-  const createdAt = new Date().toISOString();
+  const createdAt = addHours(new Date(), 2).toISOString();
   // format(
   //   zonedTimeToUtc(new Date(), "Europe/Berlin"),
   //   "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
@@ -47,7 +47,7 @@ exports.updateOrder = async function (id, body) {
     //     zonedTimeToUtc(new Date(), "Europe/Berlin"),
     //     "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
     //   ) + "";
-    const updatedAt = new Date().toISOString();
+    const updatedAt = addHours(new Date(), 2).toISOString();
     var orders = await Order.updateOne({ _id: id }, { ...body, updatedAt });
     return orders;
   } catch (e) {
