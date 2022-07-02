@@ -21,11 +21,11 @@ exports.createOrder = async function (body) {
   var count = await Order.countDocuments(query);
   const number = "#" + (count + 101);
 
-  const createdAt =
-    format(
-      zonedTimeToUtc(new Date(), "Europe/Berlin"),
-      "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-    ) + "";
+  const createdAt = new Date().toISOString();
+  // format(
+  //   zonedTimeToUtc(new Date(), "Europe/Berlin"),
+  //   "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+  // ) + "";
 
   try {
     var orders = await Order.insertMany({
@@ -42,11 +42,12 @@ exports.createOrder = async function (body) {
 };
 exports.updateOrder = async function (id, body) {
   try {
-    const updatedAt =
-      format(
-        zonedTimeToUtc(new Date(), "Europe/Berlin"),
-        "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
-      ) + "";
+    // const updatedAt =
+    //   format(
+    //     zonedTimeToUtc(new Date(), "Europe/Berlin"),
+    //     "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"
+    //   ) + "";
+    const updatedAt = new Date().toISOString();
     var orders = await Order.updateOne({ _id: id }, { ...body, updatedAt });
     return orders;
   } catch (e) {
