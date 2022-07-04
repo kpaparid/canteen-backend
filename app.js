@@ -2,12 +2,15 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 require("dotenv").config({ path: "./.env.local" });
 const { Server } = require("socket.io");
+var cron = require("node-cron");
+
 const port = process.env.PORT || 3005;
 const cors = require("cors");
 const meal_routes = require("./src/routes/meal.route.js");
 const setting_routes = require("./src/routes/setting.route.js");
 const order_routes = require("./src/routes/order.route.js");
 const firebase_routes = require("./src/routes/firebase.route.js");
+const archived_order_services = require("./src/services/archived-order.service.js");
 
 const app = express();
 app.get("/", (req, res) => {
@@ -21,6 +24,10 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Database Connected");
+    cron.schedule("0 0 2 * * *", () => {
+      archived_order_services.moveOrders();
+      console.log("Orders moved to archive");
+    });
     app.use("/meals", meal_routes);
     app.use("/settings", setting_routes);
     app.use("/orders", order_routes);
