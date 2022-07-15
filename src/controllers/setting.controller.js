@@ -35,6 +35,7 @@ exports.updateSetting = async function (req, res, next) {
         : await SettingService.updateSetting(req.params.id, req.body);
     return res.status(200).json({
       status: 201,
+      data: Settings,
       message: "Successfully Updated Setting",
     });
   } catch (e) {

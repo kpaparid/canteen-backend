@@ -27,8 +27,20 @@ exports.addRoles = async function (uid, body) {
     throw Error(e);
   }
 };
+exports.addClaims = async function (uid, body) {
+  try {
+    admin.auth().setCustomUserClaims(uid, body);
+  } catch (e) {
+    throw Error(e);
+  }
+};
 exports.createUser = async function (body) {
-  return admin.auth().createUser(body);
+  try {
+    const user = await admin.auth().createUser(body);
+    return user;
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 // module.exports = admin;
