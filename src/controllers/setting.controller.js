@@ -1,10 +1,29 @@
-var SettingService = require("../services/setting.service");
+const SettingService = require("../services/setting.service");
+const ArchivedOrderService = require("../services/archived-order.service");
+const { format } = require("date-fns");
 
 exports.getSettings = async function (req, res, next) {
   var page = req.params.page ? req.params.page : 1;
   var limit = req.params.limit ? req.params.limit : 10;
   try {
     var Settings = await SettingService.getSettings(req.query, page, limit);
+    var updatedAt = (
+      await SettingService.getSettings({
+        uid: "updatedAt",
+      })
+    ).map((o) => o.toObject())[0].entities.value;
+    const date = format(new Date(), "yyyy-MM-dd");
+
+    if (date !== updatedAt) {
+      await SettingService.updateSetting("updatedAt", {
+        value: date,
+      });
+      await SettingService.updateSetting("shopIsOpen", {
+        value: true,
+      });
+      await ArchivedOrderService.moveOrders();
+    }
+
     return res.status(200).json({
       status: 200,
       data: Settings,
