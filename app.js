@@ -13,9 +13,6 @@ const firebase_routes = require("./src/routes/firebase.route.js");
 const archived_order_services = require("./src/services/archived-order.service.js");
 
 const app = express();
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 app.set("port", port);
 app.use(express.json());
@@ -49,7 +46,7 @@ mongoose
           "95.223.108.179",
           "https://incomparable-douhua-be7995.netlify.app",
         ],
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
       },
     });
     io.on("connection", (socket) => {
@@ -69,9 +66,13 @@ mongoose
         console.log(`${socket.id} sending order ${data}`);
         socket.to(data.uid).emit("updated_order", data);
       });
+      socket.on("refresh_data", () => {
+        console.log("refreshing data");
+        socket.to("user").emit("refreshed_data", null);
+      });
       socket.on("update_shop", (data) => {
         console.log(`${socket.id} updating shop ${data}`);
-        socket.to("shopIsOpen").emit("updated_shop", data);
+        socket.to("user").emit("updated_shop", data);
       });
     });
 
