@@ -28,6 +28,7 @@ const MealSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     photoURL: String,
     extras: [ExtrasSchema],
+    visible: { type: Boolean, default: true },
     uid: { type: Number, required: true },
   },
   {
