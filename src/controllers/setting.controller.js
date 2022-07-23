@@ -1,6 +1,7 @@
 const SettingService = require("../services/setting.service");
 const ArchivedOrderService = require("../services/archived-order.service");
 const { format } = require("date-fns");
+const { utcToZonedTime } = require("date-fns-tz");
 
 exports.getSettings = async function (req, res, next) {
   var page = req.params.page ? req.params.page : 1;
