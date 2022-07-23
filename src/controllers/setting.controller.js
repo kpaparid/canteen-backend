@@ -1,7 +1,6 @@
 const SettingService = require("../services/setting.service");
 const ArchivedOrderService = require("../services/archived-order.service");
-const { format } = require("date-fns");
-const { utcToZonedTime } = require("date-fns-tz");
+const { formatInTimeZone } = require("date-fns-tz");
 
 exports.getSettings = async function (req, res, next) {
   var page = req.params.page ? req.params.page : 1;
@@ -12,18 +11,15 @@ exports.getSettings = async function (req, res, next) {
       await SettingService.getSettings({
         uid: "updatedAt",
       })
-    ).map((o) => o.toObject())[0].entities.value;
-    const date = format(
-      utcToZonedTime(new Date(), "Europe/Berlin"),
-      "yyyy-MM-dd"
-    );
+    ).map((o) => o.toObject())[0].entities.value.value;
+    const date = formatInTimeZone(new Date(), "Europe/Berlin", "yyyy-MM-dd");
 
     if (date !== updatedAt) {
       await SettingService.updateSetting("updatedAt", {
-        value: date,
+        value: { value: date, id: "value" },
       });
       await SettingService.updateSetting("shopIsOpen", {
-        value: true,
+        value: { value: true, id: "value" },
       });
       await ArchivedOrderService.moveOrders();
     }

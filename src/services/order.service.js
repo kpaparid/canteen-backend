@@ -1,5 +1,4 @@
-const { format, addHours } = require("date-fns");
-const { utcToZonedTime } = require("date-fns-tz");
+const { formatInTimeZone } = require("date-fns-tz");
 var Order = require("../models/order.model");
 
 exports.getOrders = async function (query, page, limit) {
@@ -13,9 +12,13 @@ exports.getOrders = async function (query, page, limit) {
 exports.createOrder = async function (body) {
   const price = body.items.reduce((a, b) => a + b.calculatedPrice, 0);
 
-  const date = utcToZonedTime(new Date(), "Europe/Berlin");
-  const createdAt = date.toISOString();
-  const queryDate = format(date, "yyyy-MM-dd") + "T00:00:00.000+02:00";
+  const date = formatInTimeZone(
+    new Date(),
+    "Europe/Berlin",
+    "yyyy-MM-dd'T'HH:mm zzz"
+  );
+  const queryDate =
+    formatInTimeZone(new Date(), "Europe/Berlin", "yyyy-MM-dd") + "T00:00";
   const query = { createdAt: { $gte: queryDate } };
   var count = await Order.countDocuments(query);
   const number = "#" + (count + 101);
@@ -24,8 +27,8 @@ exports.createOrder = async function (body) {
       ...body,
       price,
       number,
-      createdAt,
-      updatedAt: createdAt,
+      createdAt: date,
+      updatedAt: date,
     });
     return orders;
   } catch (e) {
@@ -34,8 +37,11 @@ exports.createOrder = async function (body) {
 };
 exports.updateOrder = async function (id, body) {
   try {
-    const date = utcToZonedTime(new Date(), "Europe/Berlin");
-    const updatedAt = date.toISOString();
+    const updatedAt = formatInTimeZone(
+      new Date(),
+      "Europe/Berlin",
+      "yyyy-MM-dd'T'HH:mm zzz"
+    );
     var orders = await Order.updateOne({ _id: id }, { ...body, updatedAt });
     return orders;
   } catch (e) {
