@@ -12,7 +12,10 @@ exports.getSettings = async function (req, res, next) {
         uid: "updatedAt",
       })
     ).map((o) => o.toObject())[0].entities.value;
-    const date = format(new Date(), "yyyy-MM-dd");
+    const date = format(
+      utcToZonedTime(new Date(), "Europe/Berlin"),
+      "yyyy-MM-dd"
+    );
 
     if (date !== updatedAt) {
       await SettingService.updateSetting("updatedAt", {
